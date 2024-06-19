@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.carprices.databinding.ItemCarModelBinding
 
-class CarModelAdapter(private val carModels: MutableList<CarModel>) : RecyclerView.Adapter<CarModelAdapter.CarModelViewHolder>() {
+class CarModelAdapter(private val carModels: MutableList<CarModel>,private val brandId: String) : RecyclerView.Adapter<CarModelAdapter.CarModelViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarModelViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemCarModelBinding.inflate(inflater, parent, false)
-        return CarModelViewHolder(binding,carModels)
+        return CarModelViewHolder(binding,carModels , brandId)
     }
 
     override fun onBindViewHolder(holder: CarModelViewHolder, position: Int) {
@@ -21,18 +21,19 @@ class CarModelAdapter(private val carModels: MutableList<CarModel>) : RecyclerVi
 
     override fun getItemCount(): Int = carModels.size
 
-    class CarModelViewHolder(val binding: ItemCarModelBinding, private val carModels: MutableList<CarModel>) : RecyclerView.ViewHolder(binding.root) {
+    class CarModelViewHolder(val binding: ItemCarModelBinding, private val carModels: MutableList<CarModel>, private val brandId: String) : RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             binding.root.setOnClickListener {
                 val context = it.context
                 val intent = Intent(context, MotorTypesActivity::class.java)
                 intent.putExtra("modelName", carModels[position].nome)
                 intent.putExtra("modelCodigo", carModels[position].codigo)
-                // Add other fields as needed
+                intent.putExtra("brandId", brandId) // Pass the brandId
                 context.startActivity(intent)
             }
         }
     }
+
 
     fun updateData(newCarModels: List<CarModel>) {
         carModels.clear()

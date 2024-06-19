@@ -11,8 +11,11 @@ interface CarApiService {
     @GET("marcas/{brandCodigo}/modelos")
     fun getCarModels(@Path("brandCodigo") brandCodigo: String): Call<CarModelsResponse>
 
-    @GET("carros/marcas/{marcaId}/modelos/{modeloId}/anos")
+    @GET("marcas/{marcaId}/modelos/{modeloId}/anos")
     fun getMotorTypes(@Path("marcaId") marcaId: String, @Path("modeloId") modeloId: String): Call<List<MotorType>>
+
+    @GET("marcas/{marcaId}/modelos/{modeloId}/anos/{anoCodigo}")
+    fun getModelDetails(@Path("marcaId") marcaId: String, @Path("modeloId") modeloId: String, @Path("anoCodigo") anoCodigo: String): Call<CarDetails>
 }
 
 

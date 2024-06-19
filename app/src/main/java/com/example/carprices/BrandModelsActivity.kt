@@ -27,10 +27,12 @@ class BrandModelsActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        adapter = CarModelAdapter(mutableListOf())
+        val brandCodigo = intent.getStringExtra("brandCodigo") ?: ""
+        adapter = CarModelAdapter(mutableListOf(), brandCodigo) // Pass the brandId to the adapter
         binding.recyclerViewCarModels.layoutManager = LinearLayoutManager(this)
         binding.recyclerViewCarModels.adapter = adapter
     }
+
 
     private fun fetchCarModels(brandCodigo: String) {
         val carService = RetrofitClient.instance.create(CarApiService::class.java)

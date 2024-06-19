@@ -1,11 +1,12 @@
 package com.example.carprices
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.carprices.databinding.ItemCarMotorBinding
 
-class MotorTypeAdapter(private val motorTypes: MutableList<MotorType>) : RecyclerView.Adapter<MotorTypeAdapter.MotorTypeViewHolder>() {
+class MotorTypeAdapter(private val motorTypes: MutableList<MotorType>, private val brandId: String, private val modelCodigo: String, private val modelName: String) : RecyclerView.Adapter<MotorTypeAdapter.MotorTypeViewHolder>() {
 
     class MotorTypeViewHolder(val binding: ItemCarMotorBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -16,7 +17,18 @@ class MotorTypeAdapter(private val motorTypes: MutableList<MotorType>) : Recycle
 
     override fun onBindViewHolder(holder: MotorTypeViewHolder, position: Int) {
         holder.binding.ModelMotorName.text = motorTypes[position].nome
+        holder.binding.root.setOnClickListener {
+            val context = it.context
+            val intent = Intent(context, PricesActivity::class.java)
+            intent.putExtra("brandId", brandId)
+            intent.putExtra("modelCodigo", modelCodigo)
+            intent.putExtra("modelName", modelName)
+            // Passing the 'codigo' instead of 'nome'
+            intent.putExtra("selectedMotorType", motorTypes[position].codigo)
+            context.startActivity(intent)
+        }
     }
+
 
     override fun getItemCount() = motorTypes.size
 

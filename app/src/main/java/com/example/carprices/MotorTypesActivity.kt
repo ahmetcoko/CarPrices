@@ -14,34 +14,45 @@ class MotorTypesActivity : AppCompatActivity() {
     private lateinit var adapter: MotorTypeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d("MotorTypesActivity", "onCreate called")
         super.onCreate(savedInstanceState)
         binding = ActivityMotorTypesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupRecyclerView() // Set up the RecyclerView
+
         val modelName = intent.getStringExtra("modelName") ?: "Unknown"
         val modelCodigo = intent.getStringExtra("modelCodigo") ?: ""
+        val brandId = intent.getStringExtra("brandId") ?: "" // Ensure you're passing this from the previous activity
+
+        Log.d("MotorTypesActivity", "brandId: $brandId, modelCodigo: $modelCodigo") // Add this line
 
         binding.ModelMotorsTitleTextView.text = modelName
-
-        setupRecyclerView()
-        if (modelCodigo.isNotEmpty()) {
-            fetchMotorTypes(modelCodigo)
+        if (brandId.isNotEmpty() && modelCodigo.isNotEmpty()) {
+            fetchMotorTypes(brandId, modelCodigo)
         }
     }
 
+
+
+
     private fun setupRecyclerView() {
-        adapter = MotorTypeAdapter(mutableListOf())
+        val modelName = intent.getStringExtra("modelName") ?: "Unknown"
+        val modelCodigo = intent.getStringExtra("modelCodigo") ?: ""
+        val brandId = intent.getStringExtra("brandId") ?: "" // Ensure you're passing this from the previous activity
+        adapter = MotorTypeAdapter(mutableListOf(), brandId, modelCodigo, modelName)
         binding.recyclerViewModelMotors.layoutManager = LinearLayoutManager(this)
         binding.recyclerViewModelMotors.adapter = adapter
     }
 
-    private fun fetchMotorTypes(modelCodigo: String) {
+    private fun fetchMotorTypes(marcaId: String, modeloId: String) {
+        Log.d("MotorTypesActivity", "fetchMotorTypes called with marcaId: $marcaId, modeloId: $modeloId") // Add this line
         val carService = RetrofitClient.instance.create(CarApiService::class.java)
-        carService.getMotorTypes("specificMarcaId", modelCodigo).enqueue(object :
-            Callback<List<MotorType>> {
+        carService.getMotorTypes(marcaId, modeloId).enqueue(object : Callback<List<MotorType>> {
             override fun onResponse(call: Call<List<MotorType>>, response: Response<List<MotorType>>) {
                 if (response.isSuccessful) {
                     response.body()?.let { motorTypes ->
+                        Log.d("MotorTypesActivity", "Fetched motor types: $motorTypes") // Log the fetched data
                         adapter.updateData(motorTypes)
                     }
                 } else {
@@ -55,4 +66,6 @@ class MotorTypesActivity : AppCompatActivity() {
             }
         })
     }
+
+
 }
