@@ -21,7 +21,15 @@ class CarBrandAdapter(
     }
 
     override fun onBindViewHolder(holder: CarBrandViewHolder, position: Int) {
-        holder.binding.CarBrandName.text = filteredCarBrands[position].nome
+        val brand = filteredCarBrands[position]
+        holder.binding.CarBrandName.text = brand.nome
+        holder.itemView.setOnClickListener {
+            val context = it.context
+            val intent = Intent(context, BrandModelsActivity::class.java)
+            intent.putExtra("brandName", brand.nome)
+            intent.putExtra("brandCodigo", brand.codigo)  // Pass the brand code
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int = filteredCarBrands.size
