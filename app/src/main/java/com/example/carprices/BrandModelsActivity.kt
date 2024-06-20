@@ -1,6 +1,8 @@
 package com.example.carprices
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,7 +26,16 @@ class BrandModelsActivity : AppCompatActivity() {
         binding.BrandModelsTitleTextView.text = brandName
         setupRecyclerView()
         fetchCarModels(brandCodigo)
+
+        binding.searchModelEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                adapter.filter.filter(s.toString())
+            }
+        })
     }
+
 
     private fun setupRecyclerView() {
         val brandCodigo = intent.getStringExtra("brandCodigo") ?: ""
