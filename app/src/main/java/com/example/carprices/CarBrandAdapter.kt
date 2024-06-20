@@ -5,39 +5,58 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.carprices.databinding.ItemCarBrandBinding
+import android.widget.Filter
+import android.widget.Filterable
 
-class CarBrandAdapter(private var carBrands: MutableList<CarBrand>) : RecyclerView.Adapter<CarBrandAdapter.CarBrandViewHolder>() {
+class CarBrandAdapter(
+    private var carBrands: List<CarBrand>
+) : RecyclerView.Adapter<CarBrandAdapter.CarBrandViewHolder>(), Filterable {
+
+    var filteredCarBrands: MutableList<CarBrand> = carBrands.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarBrandViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemCarBrandBinding.inflate(inflater, parent, false)
-        return CarBrandViewHolder(binding , carBrands)
+        return CarBrandViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: CarBrandViewHolder, position: Int) {
-        holder.binding.CarBrandName.text = carBrands[position].nome
-        holder.bind(position)
+        holder.binding.CarBrandName.text = filteredCarBrands[position].nome
     }
 
-    override fun getItemCount(): Int = carBrands.size
+    override fun getItemCount(): Int = filteredCarBrands.size
 
-    class CarBrandViewHolder(val binding: ItemCarBrandBinding, private val carBrands: MutableList<CarBrand>) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
-            binding.root.setOnClickListener {
-                val context = it.context
-                val intent = Intent(context, BrandModelsActivity::class.java)
-                intent.putExtra("brandName", carBrands[position].nome)
-                intent.putExtra("brandCodigo", carBrands[position].codigo) // Pass the codigo
-                context.startActivity(intent)
+    class CarBrandViewHolder(val binding: ItemCarBrandBinding) : RecyclerView.ViewHolder(binding.root)
+
+    fun updateData(newCarBrands: List<CarBrand>) {
+        carBrands = newCarBrands
+        filteredCarBrands = newCarBrands.toMutableList()
+        notifyDataSetChanged()
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val charString = constraint.toString()
+                filteredCarBrands = if (charString.isEmpty()) {
+                    carBrands.toMutableList()
+                } else {
+                    val filteredList = carBrands.filter {
+                        it.nome.toLowerCase().contains(charString.toLowerCase())
+                    }.toMutableList()
+                    filteredList
+                }
+                return FilterResults().apply { values = filteredCarBrands }
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                filteredCarBrands = results?.values as MutableList<CarBrand>
+                notifyDataSetChanged()
             }
         }
     }
-
-    fun updateData(newCarBrands: List<CarBrand>) {
-        carBrands.addAll(newCarBrands)
-        notifyDataSetChanged()
-    }
 }
+
 
 
 

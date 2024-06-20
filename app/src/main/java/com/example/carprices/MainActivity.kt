@@ -1,6 +1,8 @@
 package com.example.carprices
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -12,25 +14,32 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: CarBrandAdapter
+    private lateinit var allBrands: List<CarBrand>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialize the RecyclerView with a LinearLayoutManager
         binding.recyclerViewCarBrands.layoutManager = LinearLayoutManager(this)
-
-        // Initialize the adapter with an empty mutable list
-        adapter = CarBrandAdapter(mutableListOf())
+        allBrands = mutableListOf()  // Initialize with empty list
+        adapter = CarBrandAdapter(allBrands.toMutableList())
         binding.recyclerViewCarBrands.adapter = adapter
 
-        // Setup network call to fetch car brands
+        binding.searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                adapter.filter.filter(s.toString())
+            }
+        })
         fetchCarBrands()
     }
+
 
     private fun fetchCarBrands() {
         val carService = RetrofitClient.instance.create(CarApiService::class.java)
