@@ -1,4 +1,4 @@
-package com.example.carprices
+package com.example.carprices.model
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,4 +1,4 @@
-package com.example.carprices
+package com.example.carprices.views
 
 import android.os.Bundle
 import android.text.Editable
@@ -7,6 +7,10 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.carprices.Adapter.CarModelAdapter
+import com.example.carprices.network.CarApiService
+import com.example.carprices.model.CarModelsResponse
+import com.example.carprices.network.RetrofitClient
 import com.example.carprices.databinding.ActivityBrandModelsBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -39,6 +43,10 @@ class BrandModelsActivity : AppCompatActivity() {
 
         binding.retryButton.setOnClickListener {
             fetchCarModels(brandCodigo)  // Use the field inside the listener
+        }
+
+        binding.backButton.setOnClickListener {
+            finish()  // Close this activity and return to the previous one
         }
     }
 

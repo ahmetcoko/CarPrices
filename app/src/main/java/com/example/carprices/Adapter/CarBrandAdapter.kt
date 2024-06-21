@@ -1,4 +1,4 @@
-package com.example.carprices
+package com.example.carprices.Adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.carprices.databinding.ItemCarBrandBinding
 import android.widget.Filter
 import android.widget.Filterable
+import com.example.carprices.views.BrandModelsActivity
+import com.example.carprices.model.CarBrand
 
 class CarBrandAdapter(
     private var carBrands: List<CarBrand>

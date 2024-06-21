@@ -1,4 +1,4 @@
-package com.example.carprices
+package com.example.carprices.Adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -8,6 +8,8 @@ import com.example.carprices.databinding.ItemCarModelBinding
 import java.util.Locale
 import android.widget.Filter
 import android.widget.Filterable
+import com.example.carprices.model.CarModel
+import com.example.carprices.views.MotorTypesActivity
 
 class CarModelAdapter(private val carModels: MutableList<CarModel>, private val brandId: String) : RecyclerView.Adapter<CarModelAdapter.CarModelViewHolder>(), Filterable {
     var filteredCarModels: MutableList<CarModel> = carModels.toMutableList()

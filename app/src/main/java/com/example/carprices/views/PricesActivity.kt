@@ -1,4 +1,4 @@
-package com.example.carprices
+package com.example.carprices.views
 
 import android.content.Intent
 import android.graphics.Bitmap
@@ -9,7 +9,11 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import com.example.carprices.network.CarApiService
+import com.example.carprices.network.RetrofitClient
 import com.example.carprices.databinding.ActivityPricesBinding
+import com.example.carprices.model.CarDetails
+import com.example.carprices.model.ErrorResponse
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,6 +42,10 @@ class PricesActivity : AppCompatActivity() {
 
         binding.retryButton.setOnClickListener {
             fetchModelDetails(brandId, modelCodigo, selectedMotorType)
+        }
+
+        binding.backButton.setOnClickListener {
+            finish()  // Close this activity and return to the previous one
         }
 
     }

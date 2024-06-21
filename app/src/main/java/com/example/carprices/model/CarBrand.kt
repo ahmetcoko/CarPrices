@@ -1,4 +1,4 @@
-package com.example.carprices
+package com.example.carprices.model
 
 data class CarBrand(
     val codigo: String,

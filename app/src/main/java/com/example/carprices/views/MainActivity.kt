@@ -1,16 +1,17 @@
-package com.example.carprices
+package com.example.carprices.views
 
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.carprices.Adapter.CarBrandAdapter
+import com.example.carprices.network.CarApiService
+import com.example.carprices.network.RetrofitClient
 import com.example.carprices.databinding.ActivityMainBinding
+import com.example.carprices.model.CarBrand
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

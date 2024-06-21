@@ -1,5 +1,9 @@
-package com.example.carprices
+package com.example.carprices.network
 
+import com.example.carprices.model.CarBrand
+import com.example.carprices.model.CarDetails
+import com.example.carprices.model.CarModelsResponse
+import com.example.carprices.model.MotorType
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

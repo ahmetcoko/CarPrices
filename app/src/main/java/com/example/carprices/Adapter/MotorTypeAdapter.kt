@@ -1,9 +1,11 @@
-package com.example.carprices
+package com.example.carprices.Adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.carprices.model.MotorType
+import com.example.carprices.views.PricesActivity
 import com.example.carprices.databinding.ItemCarMotorBinding
 
 class MotorTypeAdapter(private val motorTypes: MutableList<MotorType>, private val brandId: String, private val modelCodigo: String, private val modelName: String) : RecyclerView.Adapter<MotorTypeAdapter.MotorTypeViewHolder>() {

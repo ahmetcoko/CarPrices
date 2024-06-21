@@ -1,4 +1,7 @@
-package com.example.carprices
+package com.example.carprices.model
+
+import com.example.carprices.model.CarModel
+import com.example.carprices.model.CarYear
 
 data class CarModelsResponse(
     val modelos: List<CarModel>,

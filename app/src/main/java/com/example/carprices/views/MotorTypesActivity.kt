@@ -1,11 +1,15 @@
-package com.example.carprices
+package com.example.carprices.views
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.carprices.Adapter.MotorTypeAdapter
+import com.example.carprices.network.CarApiService
+import com.example.carprices.network.RetrofitClient
 import com.example.carprices.databinding.ActivityMotorTypesBinding
+import com.example.carprices.model.MotorType
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,6 +39,10 @@ class MotorTypesActivity : AppCompatActivity() {
 
         binding.retryButton.setOnClickListener {
             fetchMotorTypes(brandId, modelCodigo)
+        }
+
+        binding.backButton.setOnClickListener {
+            finish()  // Close this activity and return to the previous one
         }
     }
 
