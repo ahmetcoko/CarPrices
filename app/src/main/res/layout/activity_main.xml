@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/fragment_background">
+    android:background="@drawable/fragment_background"
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/textView2"
@@ -27,7 +28,42 @@
         android:id="@+id/recyclerViewCarBrands"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:padding="8dp" />
+
+    <!-- ProgressBar -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/loadingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Loading..."
+        android:visibility="gone"
+        android:layout_gravity="center"/>
+
+    <!-- Error TextView -->
+    <TextView
+        android:id="@+id/errorTextView"
+        android:layout_width="367dp"
+        android:layout_height="44dp"
+        android:text="Error fetching data. Please retry."
+        android:textAlignment="center" />
+
+    <!-- Retry Button -->
+    <Button
+        android:id="@+id/retryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Retry"
+        android:layout_gravity="center"
+        />
 
 </LinearLayout>
+
 
