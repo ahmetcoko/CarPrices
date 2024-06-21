@@ -16,21 +16,22 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="200dp"/>
 
-        <androidx.cardview.widget.CardView android:layout_width="179dp"
-        android:layout_height="179dp"
-        android:layout_above="@id/textViewAppName"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
+    <androidx.cardview.widget.CardView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_margin="5dp"
         android:elevation="10dp"
-        app:cardCornerRadius="90dp">
+        app:cardCornerRadius="100dp"
+        android:layout_above="@id/textViewAppName"
+        android:layout_centerHorizontal="true">
 
-            <ImageView
-                android:id="@+id/roundedImageView"
-                android:layout_width="match_parent"
-                android:layout_height="206dp"
-                android:background="@color/white"
-                android:scaleType="centerCrop"
-                android:src="@drawable/logo2" />
-</androidx.cardview.widget.CardView>
+        <ImageView
+            android:id="@+id/roundedImageView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@color/white"
+            android:scaleType="centerCrop"
+            android:src="@drawable/car2" />
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
