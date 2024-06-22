@@ -7,7 +7,7 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.carprices.Adapter.CarModelAdapter
+import com.example.carprices.adapter.CarModelAdapter
 import com.example.carprices.network.CarApiService
 import com.example.carprices.model.CarModelsResponse
 import com.example.carprices.network.RetrofitClient

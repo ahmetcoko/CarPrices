@@ -1,4 +1,4 @@
-package com.example.carprices.Adapter
+package com.example.carprices.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
