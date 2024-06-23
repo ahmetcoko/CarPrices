@@ -3,7 +3,6 @@ package com.example.carprices.views
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.recyclerViewCarBrands.layoutManager = LinearLayoutManager(this)
-        allBrands = mutableListOf()  // Initialize with empty list
+        allBrands = mutableListOf()
         adapter = CarBrandAdapter(allBrands.toMutableList())
         binding.recyclerViewCarBrands.adapter = adapter
 
@@ -55,20 +54,16 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<CarBrand>>, response: Response<List<CarBrand>>) {
                 if (response.isSuccessful) {
                     response.body()?.let { brands ->
-                        // Update the adapter with the received brands
                         adapter.updateData(brands)
                         showContent()
                     }
                 } else {
                     showError()
-                    Log.e("MainActivity", "Failed to fetch brands. Response: $response")
                 }
             }
 
             override fun onFailure(call: Call<List<CarBrand>>, t: Throwable) {
-                // Handle network errors
                 showError()
-                Log.e("MainActivity", "Error fetching brands: ${t.message}")
                 t.printStackTrace()
             }
         })
@@ -76,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showLoading() {
         binding.progressBar.visibility = View.VISIBLE
-        binding.loadingTextView.visibility = View.VISIBLE // Show the loading text
+        binding.loadingTextView.visibility = View.VISIBLE
         binding.recyclerViewCarBrands.visibility = View.GONE
         binding.errorTextView.visibility = View.GONE
         binding.retryButton.visibility = View.GONE

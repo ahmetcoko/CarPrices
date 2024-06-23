@@ -25,7 +25,6 @@ class MotorTypeAdapter(private val motorTypes: MutableList<MotorType>, private v
             intent.putExtra("brandId", brandId)
             intent.putExtra("modelCodigo", modelCodigo)
             intent.putExtra("modelName", modelName)
-            // Passing the 'codigo' instead of 'nome'
             intent.putExtra("selectedMotorType", motorTypes[position].codigo)
             context.startActivity(intent)
         }

@@ -23,7 +23,7 @@ class CarModelAdapter(private val carModels: MutableList<CarModel>, private val 
     override fun onBindViewHolder(holder: CarModelViewHolder, position: Int) {
         val model = filteredCarModels[position]
         holder.binding.CarModelName.text = model.nome
-        holder.bind(model)  // Use the bind function correctly
+        holder.bind(model) // Set click listener
     }
 
     override fun getItemCount(): Int = filteredCarModels.size

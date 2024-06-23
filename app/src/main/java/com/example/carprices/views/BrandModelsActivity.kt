@@ -3,7 +3,6 @@ package com.example.carprices.views
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +18,7 @@ import retrofit2.Response
 class BrandModelsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBrandModelsBinding
     private lateinit var adapter: CarModelAdapter
-    private var brandCodigo: String = ""  // Field to hold the brandCodigo
+    private var brandCodigo: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +26,7 @@ class BrandModelsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val brandName = intent.getStringExtra("brandName") ?: ""
-        brandCodigo = intent.getStringExtra("brandCodigo") ?: ""  // Initialize brandCodigo from intent
+        brandCodigo = intent.getStringExtra("brandCodigo") ?: ""
 
         binding.BrandModelsTitleTextView.text = brandName
         setupRecyclerView()
@@ -42,16 +41,16 @@ class BrandModelsActivity : AppCompatActivity() {
         })
 
         binding.retryButton.setOnClickListener {
-            fetchCarModels(brandCodigo)  // Use the field inside the listener
+            fetchCarModels(brandCodigo)
         }
 
         binding.backButton.setOnClickListener {
-            finish()  // Close this activity and return to the previous one
+            finish()
         }
     }
 
     private fun setupRecyclerView() {
-        adapter = CarModelAdapter(mutableListOf(), brandCodigo)  // Pass the brandCodigo to the adapter
+        adapter = CarModelAdapter(mutableListOf(), brandCodigo)
         binding.recyclerViewCarModels.layoutManager = LinearLayoutManager(this)
         binding.recyclerViewCarModels.adapter = adapter
     }
@@ -68,13 +67,11 @@ class BrandModelsActivity : AppCompatActivity() {
                     }
                 } else {
                     showError()
-                    Log.e("BrandModelsActivity", "Failed to fetch models. Response: ${response.errorBody()?.string()}")
                 }
             }
 
             override fun onFailure(call: Call<CarModelsResponse>, t: Throwable) {
                 showError()
-                Log.e("BrandModelsActivity", "Error fetching models: ${t.message}")
                 t.printStackTrace()
             }
         })
@@ -82,7 +79,7 @@ class BrandModelsActivity : AppCompatActivity() {
 
     private fun showLoading() {
         binding.progressBar.visibility = View.VISIBLE
-        binding.loadingTextView.visibility = View.VISIBLE  // Show the loading text
+        binding.loadingTextView.visibility = View.VISIBLE
         binding.recyclerViewCarModels.visibility = View.GONE
         binding.errorTextView.visibility = View.GONE
         binding.retryButton.visibility = View.GONE

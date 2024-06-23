@@ -14,11 +14,9 @@ import com.example.carprices.network.CarApiService
 import com.example.carprices.network.RetrofitClient
 import com.example.carprices.databinding.ActivityPricesBinding
 import com.example.carprices.model.CarDetails
-import com.example.carprices.model.ErrorResponse
 import com.example.carprices.model.ExchangeRateResponse
 import com.example.carprices.network.CurrencyApiRetrofitClient
 import com.example.carprices.network.CurrencyApiService
-import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -49,11 +47,10 @@ class PricesActivity : AppCompatActivity() {
         }
 
         binding.backButton.setOnClickListener {
-            finish()  // Close this activity and return to the previous one
+            finish()
         }
 
         binding.currencyBtn.setOnClickListener {
-            Log.d("PricesActivity", "Currency button clicked")
             fetchSupportedCurrencies()
         }
 
@@ -67,10 +64,7 @@ class PricesActivity : AppCompatActivity() {
     private fun fetchModelDetails(brandId: String, modelCodigo: String, selectedMotorType: String) {
         showLoading()
         val carService = RetrofitClient.instance.create(CarApiService::class.java)
-        val call = carService.getModelDetails(brandId, modelCodigo, selectedMotorType)
 
-        // Log the URL
-        Log.d("PricesActivity", "API call: ${call.request().url()}")
         carService.getModelDetails(brandId, modelCodigo, selectedMotorType).enqueue(object :
             Callback<CarDetails> {
             override fun onResponse(call: Call<CarDetails>, response: Response<CarDetails>) {
@@ -78,8 +72,7 @@ class PricesActivity : AppCompatActivity() {
                     response.body()?.let { details ->
                         showContent()
                         Log.d("PricesActivity", "Car details: $details")
-                        // Setting text from API response to TextViews
-                        val priceInBrl = details.valor?.let { parseBrlCurrency(it) }
+
                         binding.vehicleTypeValue.text = details.tipoVeiculo.toString()
                         binding.brandValue.text = details.marca
                         binding.modelValue.text = details.modelo
@@ -93,17 +86,11 @@ class PricesActivity : AppCompatActivity() {
                     }
                 } else {
                     showError()
-                    val gson = Gson()
-                    val errorBody = response.errorBody()?.string()
-                    val errorResponse: ErrorResponse? = gson.fromJson(errorBody, ErrorResponse::class.java)
-                    Log.e("PricesActivity", "Failed to fetch car details: ${errorResponse?.error}")
-                    // Show error to user or handle it appropriately
                 }
             }
 
             override fun onFailure(call: Call<CarDetails>, t: Throwable) {
                 showError()
-                Log.e("PricesActivity", "Error fetching car details: ${t.message}")
                 t.printStackTrace()
             }
         })
@@ -138,7 +125,7 @@ class PricesActivity : AppCompatActivity() {
 
     private fun showLoading() {
         binding.progressBar.visibility = View.VISIBLE
-        binding.loadingTextView.visibility = View.VISIBLE // Show the loading text
+        binding.loadingTextView.visibility = View.VISIBLE
         binding.errorTextView.visibility = View.GONE
         binding.retryButton.visibility = View.GONE
     }
@@ -164,18 +151,15 @@ class PricesActivity : AppCompatActivity() {
             override fun onResponse(call: Call<ExchangeRateResponse>, response: Response<ExchangeRateResponse>) {
                 if (response.isSuccessful) {
                     response.body()?.let {
-                        // Assuming 'BRL' rate is available in the response
                         val rateOfBRL = it.conversion_rates["BRL"] ?: 1.0
                         showCurrencySelectionDialog(it.conversion_rates, rateOfBRL)
                     }
                 } else {
-                    Log.e("CurrencyApi", "Failed to fetch currencies. Response: ${response.errorBody()?.string()}")
                     Toast.makeText(this@PricesActivity, "Failed to fetch currencies", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<ExchangeRateResponse>, t: Throwable) {
-                Log.e("CurrencyApi", "Error fetching currencies", t)
                 Toast.makeText(this@PricesActivity, "Error fetching currencies: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
@@ -187,11 +171,7 @@ class PricesActivity : AppCompatActivity() {
     private fun onCurrencySelected(targetCurrency: String, rateOfBRL: Double, rateOfTarget: Double) {
         val currentValueText = binding.PriceValue.text.toString()
         val currentValue = parseBrlCurrency(currentValueText)
-
-        // Convert BRL to USD first (since API rates are against USD)
         val priceInUSD = currentValue / rateOfBRL
-
-        // Now convert USD to the selected target currency
         val convertedValue = priceInUSD * rateOfTarget
 
         showConvertedValueDialog(convertedValue, targetCurrency)

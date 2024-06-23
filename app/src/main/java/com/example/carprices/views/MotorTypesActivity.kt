@@ -19,18 +19,17 @@ class MotorTypesActivity : AppCompatActivity() {
     private lateinit var adapter: MotorTypeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d("MotorTypesActivity", "onCreate called")
         super.onCreate(savedInstanceState)
         binding = ActivityMotorTypesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupRecyclerView() // Set up the RecyclerView
+        setupRecyclerView()
 
         val modelName = intent.getStringExtra("modelName") ?: "Unknown"
         val modelCodigo = intent.getStringExtra("modelCodigo") ?: ""
-        val brandId = intent.getStringExtra("brandId") ?: "" // Ensure you're passing this from the previous activity
+        val brandId = intent.getStringExtra("brandId") ?: ""
 
-        Log.d("MotorTypesActivity", "brandId: $brandId, modelCodigo: $modelCodigo") // Add this line
+        Log.d("MotorTypesActivity", "brandId: $brandId, modelCodigo: $modelCodigo")
 
         binding.ModelMotorsTitleTextView.text = modelName
         if (brandId.isNotEmpty() && modelCodigo.isNotEmpty()) {
@@ -42,7 +41,7 @@ class MotorTypesActivity : AppCompatActivity() {
         }
 
         binding.backButton.setOnClickListener {
-            finish()  // Close this activity and return to the previous one
+            finish()
         }
     }
 
@@ -52,7 +51,7 @@ class MotorTypesActivity : AppCompatActivity() {
     private fun setupRecyclerView() {
         val modelName = intent.getStringExtra("modelName") ?: "Unknown"
         val modelCodigo = intent.getStringExtra("modelCodigo") ?: ""
-        val brandId = intent.getStringExtra("brandId") ?: "" // Ensure you're passing this from the previous activity
+        val brandId = intent.getStringExtra("brandId") ?: ""
         adapter = MotorTypeAdapter(mutableListOf(), brandId, modelCodigo, modelName)
         binding.recyclerViewModelMotors.layoutManager = LinearLayoutManager(this)
         binding.recyclerViewModelMotors.adapter = adapter
@@ -60,25 +59,21 @@ class MotorTypesActivity : AppCompatActivity() {
 
     private fun fetchMotorTypes(marcaId: String, modeloId: String) {
         showLoading()
-        Log.d("MotorTypesActivity", "fetchMotorTypes called with marcaId: $marcaId, modeloId: $modeloId") // Add this line
         val carService = RetrofitClient.instance.create(CarApiService::class.java)
         carService.getMotorTypes(marcaId, modeloId).enqueue(object : Callback<List<MotorType>> {
             override fun onResponse(call: Call<List<MotorType>>, response: Response<List<MotorType>>) {
                 if (response.isSuccessful) {
                     response.body()?.let { motorTypes ->
-                        Log.d("MotorTypesActivity", "Fetched motor types: $motorTypes") // Log the fetched data
                         adapter.updateData(motorTypes)
                         showContent()
                     }
                 } else {
                     showError()
-                    Log.e("MotorTypesActivity", "Failed to fetch motor types. Response: ${response.errorBody()?.string()}")
                 }
             }
 
             override fun onFailure(call: Call<List<MotorType>>, t: Throwable) {
                 showError()
-                Log.e("MotorTypesActivity", "Error fetching motor types: ${t.message}")
                 t.printStackTrace()
             }
         })
@@ -86,7 +81,7 @@ class MotorTypesActivity : AppCompatActivity() {
 
     private fun showLoading() {
         binding.progressBar.visibility = View.VISIBLE
-        binding.loadingTextView.visibility = View.VISIBLE // Show the loading text
+        binding.loadingTextView.visibility = View.VISIBLE
         binding.recyclerViewModelMotors.visibility = View.GONE
         binding.errorTextView.visibility = View.GONE
         binding.retryButton.visibility = View.GONE

@@ -29,7 +29,7 @@ class CarBrandAdapter(
             val context = it.context
             val intent = Intent(context, BrandModelsActivity::class.java)
             intent.putExtra("brandName", brand.nome)
-            intent.putExtra("brandCodigo", brand.codigo)  // Pass the brand code
+            intent.putExtra("brandCodigo", brand.codigo)
             context.startActivity(intent)
         }
     }
