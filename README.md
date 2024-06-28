@@ -11,6 +11,7 @@ User-Friendly Interface: A clean and intuitive interface ensures all users can n
 
 
 # Technologies and Tools
-Retrofit: This type-safe HTTP client for Android and Java is used for managing API requests and handling network operations.
+Retrofit: This type-safe HTTP client for Android and Kotlin is used for managing API requests and handling network operations.
+
 ExchangeRate-API: A reliable API service that provides real-time currency conversion rates, ensuring that the app can dynamically convert car prices into a variety of currencies as per user needs.
 
