@@ -5,10 +5,10 @@ https://github.com/ahmetcoko/CarPrices/assets/158578355/aa72dfbc-4879-4e69-a6ef-
 
 # Key Features 
 Car Pricing: Access pricing information specific to different car models and their engine sizes.
+
 Currency Conversion: Convert car prices into various global currencies in real-time, facilitating easy comparison.
 User-Friendly Interface: A clean and intuitive interface ensures all users can navigate and use the app with ease.
-Technologies Used
-The Car Prices app is built using a robust stack of modern technologies designed for reliability and scale:
+
 
 # Technologies and Tools
 Retrofit: This type-safe HTTP client for Android and Java is used for managing API requests and handling network operations.
