@@ -33,7 +33,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         android:layout_marginStart="8dp"/>
 
-    <!-- Vehicle Type -->
+    
     <TextView
         android:id="@+id/vehicleTypeTitle"
         android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
         app:layout_constraintStart_toEndOf="@id/vehicleTypeTitle"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Brand -->
+    
     <TextView
         android:id="@+id/brandTitle"
         android:layout_width="wrap_content"
@@ -84,7 +84,7 @@
         app:layout_constraintStart_toEndOf="@id/brandTitle"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Model -->
+    
     <TextView
         android:id="@+id/modelTitle"
         android:layout_width="wrap_content"
@@ -109,7 +109,7 @@
         app:layout_constraintStart_toEndOf="@id/modelTitle"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Model Year -->
+    
     <TextView
         android:id="@+id/modelYearTitle"
         android:layout_width="wrap_content"
@@ -134,7 +134,7 @@
         app:layout_constraintStart_toEndOf="@id/modelYearTitle"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Fuel Type -->
+    
     <TextView
         android:id="@+id/fuelTypeTitle"
         android:layout_width="wrap_content"
@@ -159,7 +159,7 @@
         app:layout_constraintStart_toEndOf="@id/fuelTypeTitle"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Fipe Code -->
+    
     <TextView
         android:id="@+id/fipeCodeTitle"
         android:layout_width="wrap_content"
@@ -184,7 +184,7 @@
         app:layout_constraintStart_toEndOf="@id/fipeCodeTitle"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Reference Month -->
+    
     <TextView
         android:id="@+id/referenceMonthTitle"
         android:layout_width="wrap_content"
@@ -209,7 +209,7 @@
         app:layout_constraintStart_toEndOf="@id/referenceMonthTitle"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Fuel Initials -->
+   
     <TextView
         android:id="@+id/fuelInitialsTitle"
         android:layout_width="wrap_content"
@@ -234,7 +234,7 @@
         app:layout_constraintStart_toEndOf="@id/fuelInitialsTitle"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Price -->
+    
 
     <TextView
         android:id="@+id/PriceTitle"
@@ -248,7 +248,7 @@
         app:layout_constraintStart_toStartOf="@+id/fuelInitialsTitle"
         app:layout_constraintTop_toBottomOf="@+id/fuelInitialsTitle" />
 
-    <!-- ProgressBar -->
+    
 
 
     <TextView
@@ -280,7 +280,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Loading TextView -->
+    
     <TextView
         android:id="@+id/loadingTextView"
         android:layout_width="wrap_content"
@@ -290,7 +290,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Error TextView -->
+    
     <TextView
         android:id="@+id/errorTextView"
         android:layout_width="wrap_content"
@@ -300,7 +300,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Retry Button -->
+   
     <Button
         android:id="@+id/retryButton"
         android:layout_width="wrap_content"
